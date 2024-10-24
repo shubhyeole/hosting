@@ -30,3 +30,46 @@ CREATE TABLE `landingpage`.`user` (
   PRIMARY KEY (`user_id`) ,
   CONSTRAINT `fk_client_user` FOREIGN KEY (`client_id`) REFERENCES `landingpage`.`clients`(`c_id`)
 );
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+		$(document).ready(function() {
+			$("#Add-Post-Data").on("submit", function(event) {
+					event.preventDefault();					
+						let form = new FormData(this);
+						/* let form = $(this).serialize(); */
+						//now sending req to servlet
+						$.ajax({
+									url : "addpost",
+									type : "post",
+									data : form,
+									success : function(
+											data,
+											textStatus,
+											jqXHR) {
+										if (data.trim() === "success") {
+												swal(
+													"Good Job",
+													"Post Saved Successfully",
+													"success");
+										} else {
+										}
+									},
+									error : function(
+											jqXHR,
+											textStatus,
+											errorThrown) {
+										//error logic
+									},
+									processData : false,
+									contentType : false
+								})
+					})
+})
+	</script>
