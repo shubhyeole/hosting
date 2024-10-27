@@ -1,0 +1,75 @@
+**Client Db**
+CREATE TABLE `landingpage`.`clients` (  
+  `c_id` INT NOT NULL AUTO_INCREMENT,
+  `c_name` VARCHAR(30) NOT NULL,
+  `c_db_name` VARCHAR(50) NOT NULL,
+  `c_table_name` VARCHAR(50),
+  `c_user` VARCHAR(20),
+  `c_db_pass` VARCHAR(20),
+  PRIMARY KEY (`c_id`) 
+);
+
+**Domain TABLE**
+
+CREATE TABLE `landingpage`.`domains` (  
+  `d_id` INT NOT NULL AUTO_INCREMENT,
+  `d_name` VARCHAR(100),
+  `domain_ip` VARCHAR(100),
+  PRIMARY KEY (`d_id`) 
+);
+
+
+CREATE TABLE `landingpage`.`user` (  
+  `user_id` INT NOT NULL AUTO_INCREMENT,
+  `user_emp_id` INT,
+  `name` VARCHAR(50),
+  `email` VARCHAR(40),
+  `password` VARCHAR(20),
+  `department` VARCHAR(20),
+  `client_id` INT,
+  PRIMARY KEY (`user_id`) ,
+  CONSTRAINT `fk_client_user` FOREIGN KEY (`client_id`) REFERENCES `landingpage`.`clients`(`c_id`)
+);
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+		$(document).ready(function() {
+			$("#Add-Post-Data").on("submit", function(event) {
+					event.preventDefault();					
+						let form = new FormData(this);
+						/* let form = $(this).serialize(); */
+						//now sending req to servlet
+						$.ajax({
+									url : "addpost",
+									type : "post",
+									data : form,
+									success : function(
+											data,
+											textStatus,
+											jqXHR) {
+										if (data.trim() === "success") {
+												swal(
+													"Good Job",
+													"Post Saved Successfully",
+													"success");
+										} else {
+										}
+									},
+									error : function(
+											jqXHR,
+											textStatus,
+											errorThrown) {
+										//error logic
+									},
+									processData : false,
+									contentType : false
+								})
+					})
+})
+	</script>
